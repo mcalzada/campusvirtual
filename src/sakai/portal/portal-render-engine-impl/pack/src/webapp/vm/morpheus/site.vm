@@ -141,6 +141,9 @@
             <script>$(document).ready(function(){startTutorial({'showTutorialLocationOnHide': 'true'});});</script>
         #end ## END of IF ( $tutorial && $loggedIn )
 
+        ## Kaltura Sakai Extension
+        <script type="text/javascript" language="JavaScript" src="/media-gallery-tool/js/kaltura-upgrade.js"></script>
+
         #parse("/vm/morpheus/snippets/portalChat-snippet.vm")
 
         #parse("/vm/morpheus/snippets/styleable-snippet.vm")
