@@ -21,7 +21,7 @@
         <script src="${pageSkinRepo}/${pageSkin}/js/lib/modernizr.js$!{portalCDNQuery}"></script>
 
         ## Kaltura Sakai Extension
-       ## <script type="text/javascript" language="JavaScript" src="/media-gallery-tool/js/kaltura-upgrade.js"></script>
+        <script type="text/javascript" language="JavaScript" src="/media-gallery-tool/js/kaltura-upgrade.js"></script>
 
         <script> ## Include this at the top so tool markup and headscripts.js can use it
             ## SAK-16484 Allow Javascript to easily get at user details.
