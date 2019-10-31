@@ -175,7 +175,7 @@ public class CanviDadesTool{
 		if (validaDadesAlumne()){
 			return "revisadadesalu";
 		}else{
-			return "errordades";
+			return "errordadesalu";
 		}
 	}
 	
@@ -289,6 +289,7 @@ public class CanviDadesTool{
 		boolean valid=true;
 		
 		if (!novesDades.getCorreuAlternatiu().equals("")){
+			novesDades.setCorreuAlternatiu(novesDades.getCorreuAlternatiu().trim());
 			if (!rcorreu.matcher(novesDades.getCorreuAlternatiu()).matches()){
 				errorMsg = messageBundle.getString ("dadeserr13");
 				valid=false;
@@ -296,6 +297,7 @@ public class CanviDadesTool{
 		}
 		
 		if (!novesDades.getReenviament().equals("")){
+			novesDades.setReenviament(novesDades.getReenviament().trim());
 			if (!rcorreu.matcher(novesDades.getReenviament()).matches()){
 				errorMsg = messageBundle.getString ("dadeserr8");
 				valid=false;
@@ -328,6 +330,7 @@ public class CanviDadesTool{
 			valid = false;
 		}
 		if (!novesDades.getCorreuAlternatiu().equals("")){
+			novesDades.setCorreuAlternatiu(novesDades.getCorreuAlternatiu().trim());
 			if (!rcorreu.matcher(novesDades.getCorreuAlternatiu()).matches()){
 				errorMsg = messageBundle.getString ("dadeserr13");
 				valid=false;
@@ -335,6 +338,7 @@ public class CanviDadesTool{
 		}
 		
 		if (!novesDades.getReenviament().equals("")){
+			novesDades.setReenviament(novesDades.getReenviament().trim());
 			if (!rcorreu.matcher(novesDades.getReenviament()).matches()){
 				errorMsg = messageBundle.getString ("dadeserr8");
 				valid=false;
