@@ -342,11 +342,18 @@ public class LDAPDirectoryService implements DirectoryService {
 		}
 		attrs.put("mobile", mobile);
 		
-		String reenviament,correuprincipal;
+		String reenviament,correuprincipal,correualternatiu;
 		boolean guardacorreu;
 		
 		reenviament = dadesPersonals.getReenviament();
+		correualternatiu = dadesPersonals.getCorreuAlternatiu();
 		correuprincipal = dadesPersonals.getCorreuprincipal().toLowerCase();
+		
+		if (correualternatiu == null || "".equals(correualternatiu)){
+			attrs.put("mailMessageStore", null);
+		} else{
+			attrs.put("mailMessageStore", correualternatiu);
+		}
 		
 		//De moment desactivat
 		Attribute mailForwardAttribute = new BasicAttribute("mailForwardingAddress");
@@ -361,7 +368,7 @@ public class LDAPDirectoryService implements DirectoryService {
 		}
 		
 		mailForwardAttribute.add(reenviament);
-
+		// a part del correu extern es desa sempre l'adreça UdL també per conservar còpia dels correus als servidors UdL
 		if (guardacorreu && reenviament!=null) {
 			mailForwardAttribute.add(correuprincipal);
 		}
@@ -437,7 +444,7 @@ public class LDAPDirectoryService implements DirectoryService {
 		if (correualternatiu == null || "".equals(correualternatiu)){
 			attrs.put("mailMessageStore", null);
 		} else{
-			attrs.put("mailMessageStore", correualternatiu.trim());
+			attrs.put("mailMessageStore", correualternatiu);
 		}
 		
 		//Deso l'àlies de la missatgeria
@@ -451,12 +458,11 @@ public class LDAPDirectoryService implements DirectoryService {
 		int size = mailForwardAttribute.size();
 		if (reenviament.length()==0){
 			dadesPersonals.setGuardacorreu(false);
-			reenviament=null;
+			reenviament=null;	
 		}
 		
-		
 		mailForwardAttribute.add(reenviament);
-
+		// a part del correu extern es desa sempre l'adreça UdL també per conservar còpia dels correus als servidors UdL
 		if (guardacorreu && reenviament!=null) {
 			mailForwardAttribute.add(correuprincipal);
 		}
