@@ -48,6 +48,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.sakaiproject.api.app.messageforums.Area;
 import org.sakaiproject.api.app.messageforums.Attachment;
 import org.sakaiproject.api.app.messageforums.DBMembershipItem;
@@ -1062,7 +1063,8 @@ public class PrivateMessagesTool
 	  if(hiddenGroups != null){
 		  for(Iterator itor = hiddenGroups.iterator(); itor.hasNext();){
 	    	  HiddenGroup group = (HiddenGroup) itor.next();
-	    	  returnList.add(group.getGroupId());
+	    	  String nomGrupDesescapat = StringEscapeUtils.unescapeEcmaScript(group.getGroupId());
+			  returnList.add(nomGrupDesescapat);
 		  }
 	  }
 	  
@@ -4559,7 +4561,6 @@ private   int   getNum(char letter,   String   a)
     ExternalContext context = FacesContext.getCurrentInstance()
         .getExternalContext();
     Map paramMap = context.getRequestParameterMap();
-    
     return (String) paramMap.get(parameterId);    
   }
 
@@ -5247,7 +5248,8 @@ private   int   getNum(char letter,   String   a)
 	
 	private boolean isGroupHidden(String groupName){
 		for (HiddenGroup hiddenGroup : getHiddenGroups()) {
-			if(hiddenGroup.getGroupId().equals(groupName)){
+			String groupIdUnescaped = StringEscapeUtils.unescapeEcmaScript(hiddenGroup.getGroupId());
+			if (groupIdUnescaped.equals(groupName)) {
 				return true;
 			}
 		}
@@ -5298,8 +5300,10 @@ private   int   getNum(char letter,   String   a)
 	  
 	  public void processActionAddHiddenGroup(ValueChangeEvent event){
 		  String selectedGroup = (String) event.getNewValue();
+		  
 		  if(!DEFAULT_NON_HIDDEN_GROUP_ID.equals(selectedGroup) && !isGroupHidden(selectedGroup)){
-			  getHiddenGroups().add(new HiddenGroupImpl(selectedGroup));
+			  String nomGrupEscapat = StringEscapeUtils.escapeEcmaScript(selectedGroup);
+			  getHiddenGroups().add(new HiddenGroupImpl(nomGrupEscapat));
 			  selectedNonHiddenGroup = DEFAULT_NON_HIDDEN_GROUP_ID;
 		  }
 	  }
@@ -5307,8 +5311,9 @@ private   int   getNum(char letter,   String   a)
 	  public String processActionRemoveHiddenGroup(){
 		  String groupId = getExternalParameterByKey(PARAM_GROUP_ID);
 		  if(groupId != null && !"".equals(PARAM_GROUP_ID)){
+			  String grupIdEscapat = StringEscapeUtils.escapeEcmaScript(groupId);
 			  for (HiddenGroup hiddenGroup : getHiddenGroups()) {
-				  if(hiddenGroup.getGroupId().equals(groupId)){
+				  if(hiddenGroup.getGroupId().equals(grupIdEscapat)){
 					  getHiddenGroups().remove(hiddenGroup);
 					  break;
 				  }
