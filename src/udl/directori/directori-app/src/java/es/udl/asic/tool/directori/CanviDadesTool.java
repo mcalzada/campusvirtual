@@ -335,6 +335,10 @@ public class CanviDadesTool{
 		}
 		if (!novesDades.getCorreuAlternatiu().equals("")){
 			novesDades.setCorreuAlternatiu(novesDades.getCorreuAlternatiu().trim());
+			if ((novesDades.getCorreuAlternatiu().contains("udl.cat")) || (novesDades.getCorreuAlternatiu().contains("udl.es"))) {
+				errorMsg = messageBundle.getString ("dadeserr14");
+				valid=false;
+			}
 			if (!rcorreu.matcher(novesDades.getCorreuAlternatiu()).matches()){
 				errorMsg = messageBundle.getString ("dadeserr13");
 				valid=false;
