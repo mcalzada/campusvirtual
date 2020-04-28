@@ -207,7 +207,7 @@
 		
 		<!-- OPTIONS: -->
 			<!-- Enable/disable collect thread -->
-			<property name="collectThreadEnabled" value="false"/>
+			<property name="collectThreadEnabled" value="true"/>
 			
 			<!-- Db update interval for collect thread -->
 			<property name="collectThreadUpdateInterval" value="4000"/>
